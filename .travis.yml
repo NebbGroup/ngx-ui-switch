@@ -1,0 +1,36 @@
+dist: trusty
+sudo: false
+
+cache:
+  yarn: true
+
+language: node_js
+node_js:
+  - 8
+
+addons:
+  chrome: stable
+
+# https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-the-Chrome-addon-in-the-headless-mode
+before_install:
+  - # start your web application and listen on `localhost`
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:4200 &
+
+script:
+  - yarn build
+  - yarn build:demo
+  - yarn bundlesize
+  - yarn lint --type-check
+  - yarn test:ci
+  - yarn e2e:ci
+  - yarn typedoc
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - yarn ghpages
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
