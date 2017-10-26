@@ -26,7 +26,6 @@ const UI_SWITCH_CONTROL_VALUE_ACCESSOR: any = {
   `,
   styles: [`
     .switch {
-    background: #f00;
     border: 1px solid #dfdfdf;
     position: relative;
     display: inline-block;
@@ -38,6 +37,7 @@ const UI_SWITCH_CONTROL_VALUE_ACCESSOR: any = {
     box-shadow: rgb(223, 223, 223) 0 0 0 0 inset;
     transition: 0.3s ease-out all;
     -webkit-transition: 0.3s ease-out all;
+    border-radius: 30px;
     }
 
     small {
